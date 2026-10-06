@@ -4,3 +4,4 @@ gunicorn
 requests
 markdown
 python-dotenv
+openai
