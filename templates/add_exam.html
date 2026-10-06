@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Exam</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+<div class="row justify-content-center">
+
+<div class="col-md-8">
+
+<div class="card shadow p-4">
+
+<h2>📅 Add Exam</h2>
+
+<form action="/add_exam" method="POST">
+
+<div class="mb-3">
+
+<label>Subject</label>
+
+<input type="text" name="subject" class="form-control" required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Exam Date</label>
+
+<input type="date" name="exam_date" class="form-control" required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Exam Time</label>
+
+<input type="time" name="exam_time" class="form-control">
+
+</div>
+
+<div class="mb-3">
+
+<label>Syllabus</label>
+
+<textarea name="syllabus" class="form-control" rows="4"></textarea>
+
+</div>
+
+<button class="btn btn-success">
+
+Save Exam
+
+</button>
+
+<a href="/exams" class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

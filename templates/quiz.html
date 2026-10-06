@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Quiz Generator</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+</head>
+
+
+<body class="bg-light">
+
+
+<div class="container mt-5">
+
+
+    <div class="card shadow p-4">
+
+
+        <h2 class="text-center mb-3">
+
+            🧠 AI Quiz Generator
+
+        </h2>
+
+
+        <p class="text-center text-muted">
+
+            Generate an AI-powered quiz and test your knowledge.
+
+        </p>
+
+
+        {% if error %}
+
+        <div class="alert alert-danger">
+
+            {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+        <form method="POST"
+              action="{{ url_for('quiz') }}">
+
+
+            <!-- SUBJECT -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    📚 Subject
+
+                </label>
+
+
+                <input
+                    type="text"
+                    name="subject"
+                    class="form-control"
+                    placeholder="Example: Computer Networks"
+                    required>
+
+            </div>
+
+
+            <!-- TOPIC -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    📖 Topic
+
+                </label>
+
+
+                <input
+                    type="text"
+                    name="topic"
+                    class="form-control"
+                    placeholder="Example: OSI Model"
+                    required>
+
+            </div>
+
+
+            <!-- NUMBER OF QUESTIONS -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    🔢 Number of Questions
+
+                </label>
+
+
+                <select
+                    name="num_questions"
+                    class="form-select">
+
+                    <option value="5">
+
+                        5 Questions
+
+                    </option>
+
+
+                    <option value="10"
+                            selected>
+
+                        10 Questions
+
+                    </option>
+
+
+                    <option value="15">
+
+                        15 Questions
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="btn btn-primary w-100">
+
+                🧠 Generate Quiz
+
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

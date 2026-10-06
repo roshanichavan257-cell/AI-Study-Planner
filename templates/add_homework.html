@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Homework</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+<div class="row justify-content-center">
+
+<div class="col-md-8">
+
+<div class="card shadow p-4">
+
+<h2 class="mb-4">📚 Add Homework</h2>
+
+<form action="/add_homework" method="POST">
+
+<div class="mb-3">
+
+<label>Subject</label>
+
+<input type="text"
+name="subject"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Homework Title</label>
+
+<input type="text"
+name="title"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Description</label>
+
+<textarea
+name="description"
+class="form-control"
+rows="4"></textarea>
+
+</div>
+
+<div class="mb-3">
+
+<label>Due Date</label>
+
+<input
+type="date"
+name="due_date"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Priority</label>
+
+<select
+name="priority"
+class="form-select">
+
+<option>High</option>
+<option selected>Medium</option>
+<option>Low</option>
+
+</select>
+
+</div>
+
+<button class="btn btn-success">
+
+Save Homework
+
+</button>
+
+<a href="/homework" class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

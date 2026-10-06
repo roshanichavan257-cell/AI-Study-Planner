@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pomodoro Study Timer</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+
+        body {
+            background: #f8f9fa;
+        }
+
+        .timer-card {
+            max-width: 600px;
+            margin: 70px auto;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        #timer {
+            font-size: 80px;
+            font-weight: bold;
+            margin: 30px 0;
+        }
+
+        .mode {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .btn {
+            margin: 5px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+    <div class="card shadow timer-card">
+
+        <h1>🍅 Pomodoro Study Timer</h1>
+
+        <p class="text-muted">
+            Focus on your study and take regular breaks.
+        </p>
+
+        <hr>
+
+        <div class="mode" id="mode">
+            📚 Study Time
+        </div>
+
+        <div id="timer">
+            25:00
+        </div>
+
+
+        <button
+            class="btn btn-success btn-lg"
+            onclick="startTimer()">
+
+            ▶ Start
+
+        </button>
+
+
+        <button
+            class="btn btn-warning btn-lg"
+            onclick="pauseTimer()">
+
+            ⏸ Pause
+
+        </button>
+
+
+        <button
+            class="btn btn-danger btn-lg"
+            onclick="resetTimer()">
+
+            🔄 Reset
+
+        </button>
+
+
+        <hr>
+
+
+        <h4>
+
+            📊 Sessions Completed:
+
+            <span id="sessions">0</span>
+
+        </h4>
+
+
+        <br>
+
+
+        <a
+            href="/dashboard"
+            class="btn btn-secondary">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   TIMER VARIABLES
+========================= */
+
+let timeLeft = 25 * 60;
+
+let timerInterval = null;
+
+let isStudy = true;
+
+let sessions = 0;
+
+
+/* =========================
+   UPDATE TIMER
+========================= */
+
+function updateDisplay() {
+
+    let minutes =
+        Math.floor(timeLeft / 60);
+
+    let seconds =
+        timeLeft % 60;
+
+
+    minutes =
+        String(minutes).padStart(2, "0");
+
+    seconds =
+        String(seconds).padStart(2, "0");
+
+
+    document.getElementById("timer").innerText =
+        minutes + ":" + seconds;
+
+}
+
+
+/* =========================
+   START TIMER
+========================= */
+
+function startTimer() {
+
+    if (timerInterval !== null) {
+
+        return;
+
+    }
+
+
+    timerInterval = setInterval(function() {
+
+
+        if (timeLeft > 0) {
+
+            timeLeft--;
+
+            updateDisplay();
+
+        }
+
+
+        else {
+
+
+            clearInterval(timerInterval);
+
+            timerInterval = null;
+
+
+            /* =========================
+               STUDY COMPLETED
+            ========================= */
+
+            if (isStudy) {
+
+
+                sessions++;
+
+
+                document.getElementById("sessions").innerText =
+                    sessions;
+
+
+                /* SAVE SESSION TO DATABASE */
+
+                saveStudySession();
+
+
+                playAlarm();
+
+
+                alert(
+                    "🔔 Study session completed!\n\n" +
+                    "🍅 Take a 5 minute break."
+                );
+
+
+                isStudy = false;
+
+
+                timeLeft = 5 * 60;
+
+
+                document.getElementById("mode").innerText =
+                    "☕ Break Time";
+
+
+                updateDisplay();
+
+            }
+
+
+            /* =========================
+               BREAK COMPLETED
+            ========================= */
+
+            else {
+
+
+                playAlarm();
+
+
+                alert(
+                    "📚 Break completed!\n\n" +
+                    "Time to study again!"
+                );
+
+
+                isStudy = true;
+
+
+                timeLeft = 25 * 60;
+
+
+                document.getElementById("mode").innerText =
+                    "📚 Study Time";
+
+
+                updateDisplay();
+
+            }
+
+        }
+
+
+    }, 1000);
+
+}
+
+
+/* =========================
+   PAUSE TIMER
+========================= */
+
+function pauseTimer() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+}
+
+
+/* =========================
+   RESET TIMER
+========================= */
+
+function resetTimer() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+    isStudy = true;
+
+    timeLeft = 25 * 60;
+
+
+    document.getElementById("mode").innerText =
+        "📚 Study Time";
+
+
+    updateDisplay();
+
+}
+
+
+/* =========================
+   ALARM SOUND
+========================= */
+
+function playAlarm() {
+
+    const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+
+    const audioContext =
+        new AudioContext();
+
+
+    const oscillator =
+        audioContext.createOscillator();
+
+
+    const gainNode =
+        audioContext.createGain();
+
+
+    oscillator.connect(gainNode);
+
+    gainNode.connect(
+        audioContext.destination
+    );
+
+
+    oscillator.frequency.value = 800;
+
+    oscillator.type = "sine";
+
+    gainNode.gain.value = 0.3;
+
+
+    oscillator.start();
+
+
+    setTimeout(function() {
+
+        oscillator.stop();
+
+    }, 1500);
+
+}
+
+
+/* =================================================
+   STEP 5
+   SAVE STUDY SESSION INTO DATABASE
+================================================= */
+
+function saveStudySession() {
+
+    fetch("/save_study_session", {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type": "application/json"
+
+        },
+
+        body: JSON.stringify({
+
+            minutes: 25
+
+        })
+
+    })
+
+
+    .then(response => response.json())
+
+
+    .then(data => {
+
+
+        if (data.success) {
+
+
+            console.log(
+                "✅ Study session saved successfully"
+            );
+
+
+        }
+
+        else {
+
+
+            console.log(
+                "❌ " + data.message
+            );
+
+        }
+
+    })
+
+
+    .catch(error => {
+
+
+        console.log(
+            "Error saving study session:",
+            error
+        );
+
+
+    });
+
+}
+
+
+/* =========================
+   INITIAL DISPLAY
+========================= */
+
+updateDisplay();
+
+
+</script>
+
+
+</body>
+
+</html>

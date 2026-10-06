@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Study Alarm</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-7">
+
+            <div class="card shadow p-4">
+
+                <h2 class="mb-4">
+                    🔔 Set Study Alarm
+                </h2>
+
+                <form method="POST">
+
+                    <!-- Title -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Alarm Title
+                        </label>
+
+                        <input
+                            type="text"
+                            name="title"
+                            class="form-control"
+                            placeholder="Example: AI Revision"
+                            required>
+
+                    </div>
+
+
+                    <!-- Description -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Description
+                        </label>
+
+                        <textarea
+                            name="description"
+                            class="form-control"
+                            rows="3"
+                            placeholder="What do you want to study?"></textarea>
+
+                    </div>
+
+
+                    <!-- Date -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Alarm Date
+                        </label>
+
+                        <input
+                            type="date"
+                            name="alarm_date"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+
+                    <!-- Time -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Alarm Time
+                        </label>
+
+                        <input
+                            type="time"
+                            name="alarm_time"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+
+                    <!-- Buttons -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-success">
+
+                        🔔 Set Alarm
+
+                    </button>
+
+
+                    <a
+                        href="/alarms"
+                        class="btn btn-secondary">
+
+                        Cancel
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz Result</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <div class="card shadow p-5 text-center">
+
+        <h1 class="mb-4">
+            🎉 Quiz Completed!
+        </h1>
+
+        <h3>
+            {{ subject }}
+        </h3>
+
+        <p class="text-muted">
+            Topic: {{ topic }}
+        </p>
+
+        <hr>
+
+        <div class="mt-4">
+
+            <h2>
+                Your Score
+            </h2>
+
+            <h1 class="text-success">
+                {{ score }} / {{ total }}
+            </h1>
+
+        </div>
+
+        <div class="mt-4">
+
+            <h4>
+                Percentage
+            </h4>
+
+            <h2>
+                {{ percentage }}%
+            </h2>
+
+        </div>
+
+        {% if percentage >= 80 %}
+
+            <div class="alert alert-success mt-4">
+                🏆 Excellent! Great job!
+            </div>
+
+        {% elif percentage >= 60 %}
+
+            <div class="alert alert-primary mt-4">
+                👍 Good job! Keep practicing.
+            </div>
+
+        {% elif percentage >= 40 %}
+
+            <div class="alert alert-warning mt-4">
+                📚 Keep studying and improve your score.
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-danger mt-4">
+                💪 Don't give up! Practice more.
+            </div>
+
+        {% endif %}
+
+        <div class="mt-4">
+
+            <a
+                href="{{ url_for('quiz') }}"
+                class="btn btn-primary">
+
+                🧠 Generate Another Quiz
+
+            </a>
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="btn btn-secondary">
+
+                🏠 Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
