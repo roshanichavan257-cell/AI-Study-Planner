@@ -9,5 +9,5 @@ def get_connection():
         password=os.getenv("DB_PASSWORD"),
         database=os.getenv("DB_NAME", "defaultdb"),
         cursorclass=pymysql.cursors.DictCursor,
-        ssl={"ca": "ca.pem"}
+        ssl={"ca": "/etc/secrets/ca.pem"}
     )
